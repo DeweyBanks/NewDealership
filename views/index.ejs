@@ -1,0 +1,49 @@
+<h1>Welcome to <%= title %></h1>
+<p>A list of users and vehicles </p>
+<h2>Creating a new user</h2>
+<form action="/users/create" method="POST">
+  <input type="text" placeholder="Username" name="username"/>
+  <input type="text" placeholder="Password" name="password"/>
+  <input type="submit"/ value="Save">
+</form>
+
+
+
+<h2> Users </h2>
+<ul>
+<% for(var i=0; i < users.length; i++) { %>
+    <% user = users[i] %>
+
+  <li>
+  <p>Create a new Vehicle for <%= user.username %>:</p></br>
+   <form action="/users/<%= user.id %>/vehicle/create" method="POST">
+      <input type="text" placeholder="Title" name="title">
+      <input type="text" placeholder="Description" name="description">
+      <input type="submit">
+    </form>
+    <% for(var v=0; v < user.Vehicles.length; v++) { %>
+  </li>
+  <h3><%= user.username+"'s Vehicles" %></h3>
+  <li>
+    <%= user.Vehicles[v].title %>
+    <%= user.Vehicles[v].description %>
+  </li></br>
+  <% } %>
+
+<% } %>
+</ul>
+
+  <ul>
+  <% for(var i=0; i < users.length; i++) { %>
+  <% user = users[i] %>
+    <li>
+      <h3><%= user.username %></h3>
+      <% for(var v=0; v < user.Vehicles.length; v++) { %>
+      <p><%= user.Vehicles[v].title %>,
+        <%= user.Vehicles[v].description %>
+        <a href="/users/<%= user.id %>/vehicle/<%= user.Vehicles[v].id %>/destroy">Remove Vehicle</a></p>
+      <% } %>
+      <a href="/users/<%= user.id %>/destroy">Remove User</a>
+    </li>
+  <% } %>
+
